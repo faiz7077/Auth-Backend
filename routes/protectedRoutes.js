@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const auth = require('../middlewares/authMiddleware');
+const role = require('../middlewares/roleMiddleware');
+const authController = require('../controllers/authController');
+router.get('/user', auth, role('user'), (req, res) => res.send('User Data'));
+router.get('/admin', auth, role('admin'), (req, res) => res.send('Admin Data'));
+router.get('/user/logout', auth, authController.logout);
+router.get('/admin/logout', auth, authController.logout);
+module.exports = router;
